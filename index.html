@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ba7878;
+            margin: 0;
+            padding: 0;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        .container {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            width: 100%; 
+            max-width: 2400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0.5,0.5,0.5,.5);
+            padding: 20px;
+            color: black; 
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;  
+        }
+        button {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0a3b74;
+        }
+        .summary, .answer, .references {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eef;
+            border-left: 5px solid #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Chatbot</h1>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="pdf" required>
+            <input type="text" name="question" placeholder="Ask a question about the PDF content...">
+            <button type="submit">Upload and Analyze</button>
+        </form>
+        {% if summary %}
+        <div class="summary">
+            <h2>Summary:</h2>
+            <p>{{ summary }}</p>
+        </div>
+        {% endif %}
+        {% if question %}
+        <div class="answer">
+            <h2>Question:</h2>
+            <p>{{ question }}</p>
+            <h2>Answer:</h2>
+            <p>{{ answer }}</p>
+        </div>
+        {% endif %}
+        {% if references %}
+        <div class="references">
+            <h2>References Found:</h2>
+            <p>{{ references|join(', ') }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
